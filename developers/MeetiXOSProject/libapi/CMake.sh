@@ -1,0 +1,1 @@
+cmake -DCMAKE_TOOLCHAIN_FILE=../mx-toolchain.cmake -G "Unix Makefiles"
