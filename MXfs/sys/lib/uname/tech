@@ -1,0 +1,24 @@
+
+ MeetiX OS e' un sistema operativo amatoriale in sviluppo
+ il cui natale è stato nel dicembre del 2014. Si basava inizialmente
+ sul Kernel MudStorm, un altro kernel amatoriale monolitico scritto in C99.
+ Dalla versione 0.3.1 però abbiamo cominciato a scrivere noi le parti fondamentali
+ di un nuovo kernel che avrebbe mosso MeetiX nelle versioni successive,
+ e lo abbiamo chiamato Evangelion.
+ Dalla versione 0.5 MeetiX si appoggia alle librerie di un altro OS amatoriale
+ chimato Ghost, il quale fornisce un interfaccia per le chiamate di sistema e tutto il set 
+ di librerie standard C e C++ riscritto per poter usare quell'interfaccia.
+
+ Ho riscritto completamente Evangelion e l'ho rinominato EvangelionNG (New Generation) 
+ trasformandolo di fatto da un tipo monolitico a un tipo micro, le sue 
+ principali componenti sono EvaLoader e EvaneglionNG, piu' le espansioni primarie
+ contenute in /sys/lib/Eva_expn/ chiamate moduli e i servers, contenuti in /sys/svs.
+ Attualmente EvangelionNG supporta il FileSystem MXfs, il MultiTasking Preemptive, il MultiCore SMP,
+ e ha la possibilita' di eseguire file formato elf a 32 bit.
+ Gli eseguibili di MeetiX hanno estensione .mxe, i server .sv e i moduli .eko
+ 
+ Da MeetiX OS 0.6 l'intefaccia grafica fornita dal windowserver zipNET e' quella predefinita.
+
+ MeetiX OS mira ad essere semplice e usabile.
+ 
+ Copyright (c) 2016 MeetiX OS Project

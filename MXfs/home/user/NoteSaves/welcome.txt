@@ -1,0 +1,4 @@
+ Welcome in Medit Editor!!
+ Launch Medit with one of this arguments:
+-> new <name> (create new file and save it in usr/Medit_saves)
+-> edit <path> (edit a text file; if path is null Medit open a new file)
