@@ -1,12 +1,11 @@
 Welcome to README of MeetiX OS.
 
-!You need of automake 1.11.1 and autoconf 2.64; gcc, mpc, gmp and mpfr lib; qemu and the kvm.
-
-# first of all go to: MeetiX-OS/developers/MeetiXOSProject/libapi/ and open build.sh, at line 10 replace /your/path/to/ with your real absolute path to MeetiX-OS directory
-# now you can type on your console:
-> bash build.sh install  # this take several minutes, because script install developer packages, download gcc and binutils and compile it, then install it on /opt/MeetiXOSProject
+# restyle of repository.
+# now all dependecies (except qemu, virtualbox, mpc, mpfr and gmp) for meetix toolchains are auto downloaded and local installed by the build script on toolchain directory.
+# go to toolchain directory with a terminal and type
+> bash build.sh # this take several minutes, all dependencies will be downloaded and compiled, libs will be installed on /opt/MeetiXOSProject/
 
 # if previous command finish successful type
-> bash build.sh eva # this compile the kernel
-> bash build.sh app # this compile the applications of MeetiX OS
+> bash build.sh eva    # this compile the kernel
+> bash build.sh user   # this compile the applications of MeetiX OS
 > bash build.sh repack # this create iso of MeetiX and run qemu.
