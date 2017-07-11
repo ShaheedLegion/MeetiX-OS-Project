@@ -93,7 +93,7 @@ TARGET="i686-mx"
 
 # step of build
 STEP_CLEAN=1
-STEP_DOWNLOAD=0
+STEP_DOWNLOAD=1
 STEP_UNPACK=1
 STEP_PATCH=1
 
@@ -163,15 +163,15 @@ then
 
     echo "    ${CYAN}Configuring${RESET}"
     pushd build/$AUTOMAKE_UNPACKED
-    ./configure --prefix=$AUTOMAKE_PREFIX >> /dev/null 2>&1
+    ./configure --prefix=$AUTOMAKE_PREFIX >>MeetiXBuild.log 2>&1
     failOnError
 
     echo "    ${RED}Compiling${RESET}"
-    make $MULTITHREAD >> /dev/null 2>&1
+    make $MULTITHREAD >>MeetiXBuild.log 2>&1
     failOnError
 
     echo "    ${RED}installing${RESET}"
-    make install >> /dev/null 2>&1
+    make install >>MeetiXBuild.log 2>&1
     failOnError
 
     popd
@@ -189,15 +189,15 @@ then
 
     echo "    ${CYAN}Configuring${RESET}"
     pushd build/$AUTOCONF_UNPACKED
-    ./configure --prefix=$AUTOCONF_PREFIX >> /dev/null 2>&1
+    ./configure --prefix=$AUTOCONF_PREFIX >>MeetiXBuild.log 2>&1
     failOnError
 
     echo "    ${RED}Compiling${RESET}"
-    make $MULTITHREAD >> /dev/null 2>&1
+    make $MULTITHREAD >>MeetiXBuild.log 2>&1
     failOnError
 
     echo "    ${RED}installing${RESET}"
-    make install >> /dev/null 2>&1
+    make install >>MeetiXBuild.log 2>&1
     failOnError
 
     popd
@@ -249,14 +249,14 @@ then
 	patch -d build/$GCC_UNPACKED -p 1 < $GCC_PATCH	>>/dev/null 2>&1
 	pushd build/$GCC_UNPACKED/libstdc++-v3
 	echo "[${GREEN}Updating autoconf in libstdc++-v3${RESET}]"
-	$AUTOCONF >> /dev/null 2>&1
+	$AUTOCONF >>MeetiXBuild.log 2>&1
 	popd
 
 	echo "[${GREEN}Patching $BINUTILS_UNPACKED${RESET}]"
 	patch -d build/$BINUTILS_UNPACKED -p 1 < $BINUTILS_PATCH		>>/dev/null 2>&1
 	pushd build/$BINUTILS_UNPACKED/ld
 	echo "[${GREEN}Updating automake for ld${RESET}]"
-	$AUTOMAKE >> /dev/null 2>&1
+	$AUTOMAKE >>MeetiXBuild.log 2>&1
 	popd
 
 else
@@ -382,13 +382,6 @@ make install-target-libstdc++-v3	>>MeetiXBuild.log 2>&1
 failOnError
 popd
 
-# build mxuser
-echo "[${RED}Building mxuser${RESET}]"
-pushd $TOOLCHAIN_BASE/libuser
-bash build.sh all              >>MeetiXBuild.log 2>&1
-failOnError
-popd
-
 # build cross port libs
 if [ $STEP_BUILD_PORTS == 1 ];
 then
@@ -396,24 +389,36 @@ then
     pushd $TOOLCHAIN_BASE/ports
 
     echo "    [${RED}Building zlib${RESET}]"
-    bash port.sh zlib/ >> /dev/null 2>&1
+    bash port.sh zlib/ >>MeetiXBuild.log 2>&1
+    failOnError
 
     echo "    [${RED}Building pixman${RESET}]"
-    bash port.sh pixman/ >> /dev/null 2>&1
+    bash port.sh pixman/ >>MeetiXBuild.log 2>&1
+    failOnError
 
     echo "    [${RED}Building libpng${RESET}]"
-    bash port.sh libpng/ >> /dev/null 2>&1
+    bash port.sh libpng/ >>MeetiXBuild.log 2>&1
+    failOnError
 
     echo "    [${RED}Building freetype${RESET}]"
-    bash port.sh freetype/ >> /dev/null 2>&1
+    bash port.sh freetype/ >>MeetiXBuild.log 2>&1
+    failOnError
 
     echo "    [${RED}Building cairo${RESET}]"
-    bash port.sh cairo/ >> /dev/null 2>&1
+    bash port.sh cairo/ >>MeetiXBuild.log 2>&1
+    failOnError
 
     popd
 
 else echo "${CYAN}Skipping ports build${RESET}"
 fi
+
+# build mxuser
+echo "[${RED}Building mxuser${RESET}]"
+pushd $TOOLCHAIN_BASE/libuser
+bash build.sh all              >>MeetiXBuild.log 2>&1
+failOnError
+popd
 
 # clean
 echo "[${RED}Cleaning${RESET}]"
